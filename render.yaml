@@ -2,13 +2,20 @@ services:
   - type: web
     name: academiaconnect
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: cd ucu_chapters && gunicorn --bind=0.0.0.0:$PORT --workers=4 --pythonpath .. ucu_chapters.wsgi:application
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: gunicorn ucu_chapters.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: ucu_chapters.settings
+        value: ucu_chapters.settings  # Changed from ucu_chapters.settings.production
       - key: SECRET_KEY
         generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
       - key: PORT
         value: 8000
       - key: PYTHON_VERSION
