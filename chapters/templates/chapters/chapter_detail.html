@@ -1,0 +1,17 @@
+{% extends 'chapters/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">{{ chapter.get_name_display }}</h2>
+        <div class="card-text">
+            <h4>About this Chapter</h4>
+            <p>{{ chapter.description }}</p>
+            
+            <h4>Requirements</h4>
+            <p>{{ chapter.requirements }}</p>
+        </div>
+        <a href="{% url 'chapters:register' %}?chapter={{ chapter.name }}" class="btn btn-primary mt-3">Register for this Chapter</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'chapters/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4">Welcome to UCU Chapters</h1>
+    <p class="lead">Join our specialized chapters and enhance your skills</p>
+</div>
+
+<div class="row g-4">
+    {% for chapter in chapters %}
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h3 class="card-title">{{ chapter.get_name_display }}</h3>
+                <p class="card-text">{{ chapter.description }}</p>
+                <h5>Requirements:</h5>
+                <p class="card-text">{{ chapter.requirements }}</p>
+                <a href="{% url 'chapters:register' %}" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Join Chapter
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

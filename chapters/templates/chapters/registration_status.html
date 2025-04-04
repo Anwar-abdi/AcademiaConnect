@@ -1,0 +1,59 @@
+{% extends 'chapters/base.html' %}
+
+{% block title %}Registration Status{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Check Registration Status</h2>
+                
+                <form method="get" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="registration_number" 
+                               class="form-control" 
+                               placeholder="Enter your registration number (e.g., UCU/2024/001)"
+                               value="{{ request.GET.registration_number }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Check Status
+                        </button>
+                    </div>
+                </form>
+
+                {% if registration %}
+                <div class="mt-4">
+                    <h4>Registration Details</h4>
+                    <table class="table">
+                        <tr>
+                            <th>Student Name:</th>
+                            <td>{{ registration.student.full_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Chapter:</th>
+                            <td>{{ registration.chapter.get_name_display }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td>
+                                {% if registration.status == 'PENDING' %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% elif registration.status == 'APPROVED' %}
+                                    <span class="badge bg-success">Approved</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Registration Date:</th>
+                            <td>{{ registration.registration_date|date:"F d, Y" }}</td>
+                        </tr>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
