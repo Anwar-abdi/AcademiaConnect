@@ -6,10 +6,10 @@ services:
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate
-    startCommand: gunicorn ucu_chapters.wsgi:application --bind 0.0.0.0:$PORT
+    startCommand: gunicorn --chdir ucu_chapters ucu_chapters.wsgi:application --bind=0.0.0.0:$PORT --log-file -
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: ucu_chapters.settings  # Changed from ucu_chapters.settings.production
+        value: ucu_chapters.settings
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
