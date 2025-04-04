@@ -3,9 +3,10 @@ services:
     name: academiaconnect
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn ucu_chapters.wsgi:application
+    startCommand: cd ucu_chapters && gunicorn ucu_chapters.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: ucu_chapters.settings.production
       - key: SECRET_KEY
         generateValue: true
+    python_version: 3.10.0
