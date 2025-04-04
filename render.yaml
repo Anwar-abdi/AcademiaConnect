@@ -2,14 +2,16 @@ services:
   - type: web
     name: academiaconnect
     env: python
-    buildCommand: |
-      pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-    startCommand: cd ucu_chapters && gunicorn wsgi:application --bind 0.0.0.0:$PORT
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn ucu_chapters.wsgi:application --bind=0.0.0.0:$PORT --workers=4
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: ucu_chapters.settings.production
+        value: ucu_chapters.settings
       - key: SECRET_KEY
         generateValue: true
       - key: PORT
         value: 8000
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: WEB_CONCURRENCY
+        value: 4
