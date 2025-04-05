@@ -5,11 +5,14 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*.onrender.com']
 
-# Use SQLite for the free tier
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ucu_chapters_db',
+        'USER': 'root',
+        'PASSWORD': 'Anwar2017',
+        'HOST': 'localhost',
+        'PORT': '3306',  # Switch back to working port
     }
 }
 
